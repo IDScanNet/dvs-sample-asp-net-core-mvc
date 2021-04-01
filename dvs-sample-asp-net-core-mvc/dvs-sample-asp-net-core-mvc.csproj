@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>dvs_sample_asp_net_core_mvc</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Client\src\css\site.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Client\src\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Client\src\js\" />
+  </ItemGroup>
+
+</Project>
