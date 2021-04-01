@@ -1,10 +1,27 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "DVS Sample Application";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="videoCapturingEl"></div>
+<div>
+    <form>
+        <div>
+            <label for="confidence">Confidence Score:</label><br>
+            <input type="text" id="confidence" name="confidence"><br>
+        </div>
+        <div>
+            <label for="faceMatch">Face Match:</label><br>
+            <input type="text" id="faceMatch" name="faceMatch"><br>
+        </div>
+        <div>
+            <label for="antiSpoofing">Anti Spoofing:</label><br>
+            <input type="text" id="antiSpoofing" name="antiSpoofing"><br>
+        </div>
+        <div>
+            <label for="far">False Positive Probability:</label><br>
+            <input type="text" id="far" name="far"><br>
+        </div>
+    </form>
 </div>
