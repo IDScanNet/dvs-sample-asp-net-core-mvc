@@ -5,7 +5,7 @@ import "../../node_modules/@idscan/idvc/dist/css/idvc.css";
 let idvc = new IDVC({
     el: "videoCapturingEl",
     networkUrl: "/networks",
-    licenseKey: "",
+    licenseKey: "REPLACE ME WITH YOUR LICENSE KEY",
     types: ["ID", "Passport", "PassportCard"],
     showSubmitBtn: true,
     showForceCapturingBtn: false,
@@ -14,13 +14,13 @@ let idvc = new IDVC({
     isShowVersion: true,
     resizeUploadedImage: 1500,
     realFaceMode: "all",
-    minPDFframes: 4,
+    minPDFframes: 1,
     capturingMode: 4,
     onCameraError(err) {
         console.error(err);
     },
     submit(data) {
-        console.log('submit hanlder is running');
+        console.log('submit event handler is running');
         idvc.showSpinner(true);
         let backStep = data.steps.find((item) => item.type === "back");
         let trackString = null;
@@ -33,13 +33,9 @@ let idvc = new IDVC({
 
 
         let request = {
-            frontImageBase64: data.steps
-                .find((item) => item.type === "front")
-                .img.split(/:image\/(jpeg|png);base64,/)[2],
+            frontImageBase64: data.steps.find((item) => item.type === "front").img.split(/:image\/(jpeg|png);base64,/)[2],
             backOrSecondImageBase64: backImage,
-            faceImageBase64: data.steps
-                .find((item) => item.type === "face")
-                .img.split(/:image\/(jpeg|png);base64,/)[2],
+            faceImageBase64: data.steps.find((item) => item.type === "face").img.split(/:image\/(jpeg|png);base64,/)[2],
             documentType: data.documentType,
             trackString: trackString,
             userAgent: window.navigator.userAgent,
@@ -59,7 +55,7 @@ let idvc = new IDVC({
             .then((response) => response.json())
             .then((response) => {
                 fetch(
-                    "https://us-central1-idscan-backend.cloudfunctions.net/api/ValidationRequests/complete",
+                    "REPLACE ME WITH YOUR BACKEND SERVICE URL",
                     {
                         method: "POST",
                         headers: {
@@ -72,24 +68,19 @@ let idvc = new IDVC({
                 )
                     .then((response) => response.json())
                     .then((response) => {
-                        document.getElementById("confidence").value =
-                            response.documentVerificationResult.totalConfidence;
-
-                        document.getElementById("faceMatch").value =
-                            response.faceVerificationResult.confidence;
-
-                        document.getElementById("antiSpoofing").value =
-                            response.faceVerificationResult.antiSpoofing;
-
-                        document.getElementById("far").value =
-                            response.faceVerificationResult.far;
+                    
+                        document.getElementById("confidence").value = response.documentVerificationResult.totalConfidence;
+                        document.getElementById("faceMatch").value = response.faceVerificationResult.confidence;
+                        document.getElementById("antiSpoofing").value = response.faceVerificationResult.antiSpoofing;
+                        document.getElementById("far").value = response.faceVerificationResult.far;
+                    
                         console.log(response);
                         idvc.showSpinner(false);
                     });
             })
             .catch((err) => {
+                console.log("Error:", err);    
                 idvc.showSpinner(false);
-                console.log("Error:", err);
             });
     }
 });
