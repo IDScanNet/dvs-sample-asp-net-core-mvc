@@ -48,7 +48,7 @@ let idvc = new IDVC({
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
-                Authorization: "Bearer ",
+                Authorization: "Bearer REPLACE ME WITH YOUR PUBLIC KEY",
             },
             body: JSON.stringify(request),
         })
